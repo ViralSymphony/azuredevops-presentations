@@ -1,0 +1,29 @@
+{
+	"Insert Slide": {
+		"scope": "html",
+		"prefix": ["slide", "slide-insert"],
+		"body": [
+			"<!--#region ${1:SlideDescription} -->",
+			"<section>",
+			"\t<h2>$1</h2>",
+			"\t$0",
+			"</section>",
+			"<!-- End Slide ${1:SlideDescription} endregion-->"			
+		]
+	},
+	"Slide Group": {
+		"scope": "html",
+		"prefix": ["sgroup", "slide-group"],
+		"body": [
+			"<!--#region SlideGroup ${1:GroupDescription} -->",
+			"<section>",
+			"\t<section>",
+			"\t\t<h1>$1</h1>",
+			"\t</section>",
+			"\t$0",
+			"</section>",			
+			"<!-- End SlideGroup ${1:GroupDescription} endregion-->"			
+		]
+	}
+
+}

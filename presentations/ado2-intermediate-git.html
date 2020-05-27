@@ -1,0 +1,527 @@
+<!doctype html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+	<title>Azure DevOps 2 - Intermediate Git</title>
+
+	<link rel="stylesheet" href="../css/presentations.css">
+	<link rel="stylesheet" href="../dist/reset.css">
+	<link rel="stylesheet" href="../dist/reveal.css">
+	<link rel="stylesheet" href="../dist/theme/blood.css">
+
+	<!-- Theme used for syntax highlighting of code -->
+	<link rel="stylesheet" href="../plugin/highlight/monokai.css">
+</head>
+
+<body>
+	<div class="reveal">
+		<div class="slides">
+			<!--#region DevOps -->
+			<!--#region Working With Azure DevOps -->
+			<section>
+				<h1>Working With Azure DevOps</h1>
+				<h3>Session 2: Intermediate Git</h3>
+				<small>Presented by Natalie Livanos</small>
+			</section>
+			<!-- End Slide Working With Azure DevOps endregion-->
+
+			<!--#region Recap -->
+			<section>
+				<h2>Recap</h2>
+				<ul>
+					<li>DevOps principles and basics</li>
+					<li>Common DevOps terms and tools</li>
+					<li>Git's background</li>
+					<li>Initializing a repo (<code>git init</code>)</li>
+					<li>Making a change to an existing repo (<code>git commit</code>)</li>
+					<li>Sending your changes to Azure DevOps (<code>git push</code>)</li>
+				</ul>
+			</section>
+			<!-- End Slide Recap endregion-->
+
+			<!--#region SlideGroup Remotes -->
+			<section>
+				<section>
+					<h1>Remotes</h1>
+				</section>
+				<!--#region Remotes -->
+				<section>
+					<h2>Remotes</h2>
+					<p>Pointer to another Git repo location</p>
+					<p>Name + URL - <b>Origin</b> is used by default</p>
+					<p><code>git clone</code> automatically sets up remote</p>
+					<ul>
+						<li>Azure DevOps, BitBucket, GitHub</li>
+						<li>Network Share</li>
+						<li>Another developer's computer</li>
+					</ul>
+				</section>
+				<!-- End Slide Remotes endregion-->
+				<!--#region See Existing Remotes -->
+				<section>
+					<h2>See Existing Remotes</h2>
+					<pre><code class="hljs shell">$ git remote
+origin
+
+$ git remote get-url origin
+http://myremoteurl
+</code></pre>
+				</section>
+				<!-- End Slide See Existing Remotes endregion-->
+				<!--#region Remove A Remote -->
+				<section>
+					<h2>Remove A Remote</h2>
+					<pre><code class="hljs shell">$ git remote remove origin
+						
+$ git remote
+
+</code></pre>
+				</section>
+				<!-- End Slide Remove A Remote endregion-->
+				<!--#region Add A Remote -->
+				<section>
+					<h2>Add A Remote</h2>
+					<pre><code class="hljs shell">$ git remote add origin "http://myremoteurl"
+
+$ git remote
+origin</code></pre>
+				</section>
+				<!-- End Slide Add A Remote endregion-->
+				<!--#region Pushing & Upstreams -->
+				<section>
+					<h2>Pushing & Upstreams</h2>
+					<div data-fragment-index="1" class="fragment fade-out stack">
+						<p><code>git fetch</code> and <code>git push</code> URLs don't have to be the same</p>
+						<p>When pushing, an upstream points to a branch on the specified remote</p>
+						<p>Usually only set once, if pushing a new branch or to a new remote</p>
+					</div>
+					<div data-fragment-index="1" class="fragment fade-in stack">
+						<pre><code class="hljs shell">$ git push
+fatal: The current branch master has no upstream branch.
+To push the current branch and set the remote as upstream, use
+
+    git push --set-upstream origin master
+
+
+$ git push --set-upstream origin master
+Counting objects: 4, done.
+Delta compression using up to 4 threads.
+Compressing objects: 100% (4/4), done.
+Writing objects: 100% (4/4), 979 bytes | 979.00 KiB/s, done.
+Total 4 (delta 3), reused 0 (delta 0)
+remote: Resolving deltas: 100% (3/3), completed with 3 local objects.
+To https://myremoteurl
+   dd86fa4..f5ba996  master -> master
+Branch 'master' set up to track remote branch 'master' from 'origin'.
+</code></pre>
+					</div>
+				</section>
+				<!-- End Slide Pushing & Upstreams endregion-->
+
+			</section>
+			<!-- End SlideGroup Remotes endregion-->
+
+			<!--#region SlideGroup Branching -->
+			<section>
+				<section>
+					<h1>Branching</h1>
+				</section>
+			<!--#region Slide Branching -->
+			<section>
+				<h2><span class="devops-principle" data-tippy-content="Experimentation">Branching</span></h2>
+
+				<div data-fragment-index="1" class="stack fragment fade-out">
+					<p>Isolates development that diverged from master</p>
+					<p>Fast and lightweight</p>
+					<p>Master is default branch when <code>git init</code> is performed</p>
+					<p>Slash syntax for folders: (feat/update-the-thing)</p>
+				</div>
+
+				<div data-fragment-index="1" class="stack fragment fade-in-then-out">
+					<pre><code class="hljs shell">$ git branch
+* master
+
+$ git branch chg1
+
+$ git checkout chg1
+Switched to branch 'chg1'
+
+$ git checkout master
+Switched to branch 'master'
+
+$ git branch -d chg1
+Deleted branch chg1 (was a2c09d1).
+
+$ git checkout -b chg2
+Switched to a new branch 'chg2'
+</code></pre>
+				</div>
+			
+				<div data-fragment-index="2" class="stack fragment fade-in">
+					<img height="500" src="../assets/branch.gif" />
+				</div>
+
+				</section>
+				<!-- #endregion Slide Branching-->
+			
+				<!--#region Branching & Remotes -->
+				<section>
+					<h2>Branching & Remotes</h2>
+					<p>Use <code>git push</code> to send changes on your current branch to the upstream (remote)</p>
+					<p><code>git push --all</code> will send all changes on all branches</p>
+					<p>Branches pushed to a remote are <span class="devops-principle" data-tippy-content="Sharing & Transparency">visible to everyone</span></p>
+					<p><code>git fetch</code> will check for changes on a remote</p>
+						<p><code>git pull</code> will check for updates AND integrate them with current branch</p> 
+				</section>
+				<!-- End Slide Branching & Remotes endregion-->
+			
+			</section>
+			<!-- End SlideGroup Branching endregion-->
+			
+			<!--#region SlideGroup Merging & PRs -->
+			<section>
+				<section>
+					<h1>Merging & Pull Requests</h1>
+				</section>
+				<!--#region Merging -->
+				<section>
+					<h2>Why Merging?</h2>
+					<p>How to bring diverging branches back together</p>
+					<p>We usually merge feature branches back into master (unless following a different strategy)</p>
+					<p><code>git merge</code> or <code>git rebase</code> are usually used here</p>
+				</section>
+				<!-- End Slide Merging endregion-->
+				<!--#region Merging & Rebasing -->
+				<section>
+					<h2>Merging</h2>
+					<div class="fragment stack fade-out">
+						<p>Merging combines 2 histories (branches) by fast-forwarding, or creating a new merge commit</p>
+						<p>Use merge to take a branch into the currently checked out branch</p>
+					</div>
+					<div class="stack fragment fade-in-then-out">
+						<pre><code class="hljs shell">$ git merge [SOURCE-BRANCH]</code></pre>
+					</div>
+					<div class="fragment stack fade-in">
+						<img height="500" src="../assets/merge.gif"/>
+					</div>
+					<!-- <p>Merge combines 2 histories (branches) with a merge commit</p> -->
+				</section>
+				<!-- End Slide Merging & Rebasing endregion-->
+				<!--#region Rebasing -->
+				<section>
+					<h2>Rebasing</h2>
+					<div class="stack fragment fade-out">
+						<p>Rebase combines 2 histories (branches) by replaying commits</p>
+						<p>Takes the currently checked out branch and replays those commits on the rebase branch</p>
+						<p><strong>REWRITES HISTORY! DON'T USE ON A BRANCH THAT IS PUSHED TO A REMOTE THAT OTHER DEVS USE!</strong></p>
+					</div>
+					<div class="stack fragment fade-in-then-out">
+						<pre><code class="hljs shell">$ git rebase [BRANCH-TO-REBASE-ON]</code></pre>
+					</div>
+					<div class="stack fragment fade-in">
+						<img height="500" src="../assets/rebase.gif"/>
+					</div>
+				</section>
+				<!-- End Slide Rebasing endregion-->
+ 
+				<!--#region Pull Requests -->
+				<section>
+					<h2>Pull Requests</h2>
+					<div data-fragment-index="1" class="stack fragment fade-out">
+						<p>Not native to git, popularized by Github & other services</p>
+						<p>Oversight on merge process into master (typically)</p>
+						<p>Allows the team to <span class="devops-principle" data-tippy-content="Feedback">collaborate</span> on proposed changes</p>
+						<p>Great for architectural & pattern issues that software won't catch</p>
+					</div>
+					<div data-fragment-index="1" class="stack fragment">
+						<img src="../assets/ado-pr.png"/>
+					</div>
+
+
+				</section>
+				<!-- End Slide Pull Requests endregion-->
+				<!--#region Branch Policies -->
+				<section>
+					<h2>Branch Policies</h2>
+					<p>Protect branches from arbitrary changes without a pull request</p>
+					<p>For us: enforced on master with a squash merge</p>
+					<p>Build and release validation is very helpful for workflows</p>
+				</section>
+				<!-- End Slide Branch Policies endregion-->
+				<!--#region Merge Conflicts -->
+				<section>
+					<h2>Merge Conflicts</h2>
+					<div data-fragment-index="1" class="fragment stack fade-out">
+						<p>2 developers edit the same file</p>
+						<p>Requires manual intervention</p>
+					</div>
+					<div data-fragment-index="1" class="fragment stack">
+						<img src="../assets/git-merge-conflict.png"/>
+					</div>
+				</section>
+				<!-- End Slide Merge Conflicts endregion-->
+				<!--#region Merge Options -->
+				<section>
+					<h2>Merge Options</h2>
+					<p>Determine how a typical merge is resolved</p>
+				</section>
+				<!-- End Slide Merge Options endregion-->
+				<!--#region ff (default) & ff-only -->
+				<section>
+					<h2>ff (default) & ff-only</h2>
+					<p>If possible, resolve the merge by fast forwarding the target branch to meet the source branch</p>
+					<p>ff-only will fail the merge operation if this can't be done</p>				
+				</section>
+				<!-- End Slide ff (default) & ff-only endregion-->
+
+				<!--#region no-ff -->
+				<section>
+					<h2>no-ff</h2>
+					<p>Regardless of whether or not the ref can be fast-forwarded, make a merge commit every time</p>					
+				</section>
+				<!-- End Slide SlideDescription endregion-->
+				<!--#region squash -->
+				<section>
+					<h2>squash</h2>
+					<p>Take all changes on the source, condense them into one new commit, and commit that to the tip of target</p>
+				</section>
+				<!-- End Slide squash endregion-->
+				<!--#region Rebase and merge -->
+				<section>
+					<h2>Rebase and merge</h2>
+					<p>Take all changes on the source, rebase them on the target, and create a merge commit to link rebased commits and target</p>				
+				</section>
+				<!-- End Slide Rebase and merge endregion-->
+				<!--#region Rebase and fast-forward -->
+				<section>
+					<h2>Rebase and fast-forward</h2>
+					<p>Take all changes on the source, rebase them on the target, and simply fast-forward the target to the tip of the rebased commits</p>
+					
+				</section>
+				<!-- End Slide Rebase and fast-forward endregion-->
+
+				<!--#region Merge Strategies -->
+				<section>
+					<h2>Merge Strategies</h2>
+					<div data-fragment-index="1" class="stack fragment fade-out">
+						<p>Advanced ways to resolve merges</p>
+					</div>
+					<div data-fragment-index="1" class="stack fragment">
+						<table>
+							<tr>
+								<td>Recursive</td>
+								<td>Default for 2 branches</td>
+								<td>Creates merged tree of common ancestor</td>
+							</tr>
+							<tr>
+								<td>Octopus</td>
+								<td>Default for > 2 branches</td>
+								<td>Used for bundling multiple topic branches into 1 merge commit</td>
+							</tr>
+							<tr>
+								<td>Ours</td>
+								<td>Set via <code>--strategy</code> flags</td>
+								<td>Throws away all changes on target but creates a merge commit</td>
+							</tr>
+						</table>
+						</div>
+
+				</section>
+				<!-- End Slide Merge Strategies endregion-->
+
+				</section>
+				<!-- End SlideGroup Pull Requests endregion-->
+				<!--#region SlideGroup Branching Strategies -->
+				<section>
+				<section>
+					<h1>Branching Strategies</h1>
+				</section>
+				<section>
+					<h2>Branching Strategies</h2>
+					<p>Models used to support concurrent development SDLCs</p>
+					<p>Most are variants on Feature Branching or <a href="https://trunkbaseddevelopment.com/">Trunk Based
+							Development</a></p>
+					<p>All have pros and cons</p>
+
+				</section>
+				<!--#region Feature Branching -->
+				<section>
+					<h3>Feature Branching</h3>
+					<div class="stack fragment fade-in-then-semi-out">
+						<img style="background-color: #ddd;" height="40%" width="40%" src="../assets/feature.svg"/>
+					</div>
+					<div class="fragment stack">
+						<table>
+							<thead>
+								<th>Pros</th>
+								<th>Cons</th>
+							</thead>
+							<tr>
+								<td>Simple and easy to use</td>
+								<td>Master is not always what's in prod currently</td>
+							</tr>
+							<tr>
+								<td>Low branch depth -> less merge conflicts</td>
+								<td></td>
+							</tr>
+							<tr>
+								<td>Flexible and easy to extend</td>
+								<td></td>
+							</tr>
+						</table>
+					</div>
+					
+				</section>
+				<!-- End Slide Feature Branching endregion-->
+
+				<!--#region GitFlow -->
+				<section>
+					<h3>GitFlow</h3>
+					<div class="stack fragment fade-in-then-semi-out">
+						<img style="background-color: #ddd;" height="40%" width="40%" src="../assets/gitflow.svg"/>
+					</div>
+					<div class="stack fragment">
+						<table>
+							<thead>
+								<th>Pros</th>
+								<th>Cons</th>
+							</thead>
+							<tr>
+								<td>Master is guaranteed to be what's in prod</td>
+								<td>High risk of regression on hotfix process</td>
+							</tr>
+							<tr>
+								<td>Well suited for scheduled releases</td>
+								<td>High branch depth -> more merge conflicts</td>
+							</tr>
+							<tr>
+								<td></td>
+								<td>Very strict workflow</td>
+							</tr>
+							<tr>
+								<td></td>
+								<td>Requires more participation from rel mgmt</td>
+							</tr>
+						</table>
+					</div>
+					
+				</section>
+				<!-- End Slide GitFlow endregion-->
+
+				<!--#region Release Flow -->
+				<section>
+					<h3>Release Flow</h3>
+					<div class="stack fragment fade-in-then-semi-out">
+						<img style="background-color: #ddd;" height="38%" width="38%" src="../assets/rflow.svg"/>
+					</div>
+					<div class="stack fragment">
+						<table>
+							<thead>
+								<th>Pros</th>
+								<th>Cons</th>
+							</thead>
+							<tr>
+								<td>Natural workflow of Azure DevOps</td>
+								<td>Master is not always what's in prod currently</td>
+							</tr>
+							<tr>
+								<td>Well suited for scheduled releases</td>
+								<td>Requires more participation from rel mgmt</td>
+							</tr>
+							<tr>
+								<td>Low branch depth -> less merge conflicts</td>
+								<td>More complicated than Feature Branches</td>
+							</tr>
+							<tr>
+								<td>No special bugfix process (unlike Gitflow)</td>
+								<td></td>
+							</tr>
+						</table>
+					</div>
+
+					
+				</section>
+				<!-- End Slide Release Flow endregion-->
+
+			</section>
+			<!-- End SlideGroup Branching Strategies endregion-->
+
+			<!--#region Questions? -->
+			<section>
+				<h1>Questions?</h1>
+			</section>
+			<!-- End Slide Questions? endregion-->
+
+			<!--#region Now What? -->
+			<section>
+				<h2>Now What?</h2>
+				<p>Move on to <a href="ado3-advanced-git.html">Advanced Git</a></p>
+				<p>Return to the <a href="../index.html">Presentations Home Page</a></p>
+			</section>
+			<!-- End Slide Now What? endregion-->
+			
+
+
+		</div>
+	</div>
+
+	<script src="https://unpkg.com/@popperjs/core@2"></script>
+	<script src="https://unpkg.com/tippy.js@6"></script>
+	<script src="../dist/reveal.js"></script>
+	<script src="../plugin/notes/notes.js"></script>
+	<script src="../plugin/markdown/markdown.js"></script>
+	<script src="../plugin/highlight/highlight.js"></script>
+	<script src="../plugin/zoom/zoom.js"></script>
+	<script>
+		// More info about config & dependencies:
+		// - https://github.com/hakimel/reveal.js#configuration
+		// - https://github.com/hakimel/reveal.js#dependencies
+		Reveal.initialize({
+		hash: true,
+		// Learn about plugins: https://revealjs.com/plugins/
+		plugins: [ RevealMarkdown, RevealHighlight, RevealNotes, RevealZoom ],
+
+		// dependencies: [
+		// {
+		// src: '../plugin/markdown/marked.js'
+		// },
+		// {
+		// src: '../plugin/zoom-js/zoom.js'
+		// },
+		// {
+		// src: '../plugin/markdown/markdown.js'
+		// },
+		// {
+		// src: '../plugin/highlight/highlight.js'
+		// },
+		// {
+		// src: '../plugin/notes/notes.js',
+		// async: true
+		// },
+		// {
+		// src: '../plugin/chalkboard/chalkboard.js'
+		// },
+		// ],
+		// keyboard: {
+		// 67: function() { RevealChalkboard.toggleNotesCanvas() }, // toggle notes canvas when 'c' is pressed
+		// 66: function() { RevealChalkboard.toggleChalkboard() }, // toggle chalkboard when 'b' is pressed
+		// 46: function() { RevealChalkboard.clear() }, // clear chalkboard when 'DEL' is pressed
+		// 8: function() { RevealChalkboard.reset() }, // reset chalkboard data on current slide when 'BACKSPACE' is pressed
+		// 68: function() { RevealChalkboard.download() }, // downlad recorded chalkboard drawing when 'd' is pressed
+		// 88: function() { RevealChalkboard.colorNext() }, // cycle colors forward when 'x' is pressed
+		// 90: function() { RevealChalkboard.colorPrev() }, // cycle colors backward when 'y' is pressed
+		// },
+		});
+		tippy('[data-tippy-content]',
+			{
+				theme: 'devops'
+			});
+			
+	</script>
+
+</body>
+
+</html>

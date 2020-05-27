@@ -1,0 +1,32 @@
+code{
+    color: green;
+}
+
+.devops-principle{
+    background-color: #a23;
+    color: white;
+}
+
+.tippy-box[data-theme~='devops'] {
+    background-color: #a23;
+    font-family: Ubuntu, "sans-serif";
+    color: white;
+  }
+  .tippy-box[data-theme~='devops'][data-placement^='top'] > .tippy-arrow::before {
+    border-top-color: #a23;
+  }
+  .tippy-box[data-theme~='devops'][data-placement^='bottom'] > .tippy-arrow::before {
+    border-bottom-color: #a23;
+  }
+  .tippy-box[data-theme~='devops'][data-placement^='left'] > .tippy-arrow::before {
+    border-left-color: #a23;
+  }
+  .tippy-box[data-theme~='devops'][data-placement^='right'] > .tippy-arrow::before {
+    border-right-color: #a23;
+  }
+  
+  div.stack {
+    position: absolute;
+    display: block;
+    width: 100%;
+  }

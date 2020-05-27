@@ -1,0 +1,341 @@
+<!doctype html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+	<title>Azure DevOps 1 - DevOps</title>
+
+	<link rel="stylesheet" href="../dist/reset.css">
+	<link rel="stylesheet" href="../dist/reveal.css">
+	<link rel="stylesheet" href="../dist/theme/blood.css">
+
+	<!-- Theme used for syntax highlighting of code -->
+	<link rel="stylesheet" href="../plugin/highlight/monokai.css">
+</head>
+
+<body>
+	<div class="reveal">
+		<div class="slides">
+			<!--#region DevOps -->
+			<!--#region Working With Azure DevOps -->
+			<section>
+				<h1>Working With Azure DevOps</h1>
+				<h3>Session 1: DevOps and Git</h3>
+				<small>Presented by Natalie Livanos</small>
+			</section>
+			<!-- End Slide Working With Azure DevOps endregion-->
+
+			<!--#region SlideGroup DevOps -->
+			<section>
+				<section>
+					<h1>DevOps</h1>
+				</section>
+				<!--#region Origin -->
+				<section>
+					<h2>Origin</h2>
+					<p>Silos caused frustration among industry leaders</p>
+					<ul>
+						<li>Slow turnaround times</li>
+						<li>Failures & quality</li>
+						<li>Unnecessary complexity and paperwork</li>
+					</ul>
+					<p>Agile & lean concepts applied to SDLC (specifically Deploy and Build)</p>
+				</section>
+				<!-- End Slide Origin endregion-->
+				<!--#region Definition -->
+				<section>
+					<h2>Definition<small>(-ish)</small></h2>
+					<blockquote>
+						<p><em>Practices that combine traditionally Dev and Ops responsibilities into one mindest with
+								cross functional teams and a focus on collaboration, communication, and flow</em></p>
+					</blockquote>
+					<p>No formal definition</p>
+					<p>Key point: DevOps is tools <strong>and</strong> culture</p>
+				</section>
+				<!-- End Slide Definition endregion-->
+				<!--#region Principles -->
+				<section>
+					<h2>Principles (CAMS)</h2>
+					<ul>
+						<p>Culture</p>
+						<p>Automation</p>
+						<p>Measurement</p>
+						<p>Sharing</p>
+					</ul>
+
+				</section>
+				<!-- End Slide Principles endregion-->
+				<!--#region Culture -->
+				<section>
+					<h2>Culture</h2>
+					<p>Not just a tools discussion</p>
+					<p>Shifting mentality to think agile and flow (especially leadership)</p>
+				</section>
+				<!-- End Slide Culture endregion-->
+				<!--#region Automation -->
+				<section>
+					<h2>Automation</h2>
+					<p>Tools facilitate SDLC process and flow</p>
+					<p>Help streamline, identify risks, give feedback, reduce human error</p>
+				</section>
+				<!-- End Slide Automation endregion-->
+				<!--#region Measurement -->
+				<section>
+					<h2>Measurement</h2>
+					<p>Make sure our processes are becoming better</p>
+					<p>How does app performance change when implementing DevOps?</p>
+					<p>MTTR and MTTF</p>
+
+				</section>
+				<!-- End Slide Measurement endregion-->
+				<!--#region Sharing -->
+				<section>
+					<h2>Sharing</h2>
+					<p>Dev and Ops work as a unified team - no invisible wall</p>
+					<p>Share WIP, responsibilities, app's lifecycle, etc</p>
+					<p>Transparency is key</p>
+				</section>
+				<!-- End Slide Sharing endregion-->
+				<!--#region The Three Ways -->
+				<section>
+					<h2>The Three Ways</h2>
+					<p>Increase flow</p>
+					<p>Enhance Feedback Loops</p>
+					<p>Encourage experimentation</p>
+				</section>
+				<!-- End Slide The Three Ways endregion-->
+				<!--#region Increase Flow (Shift Left) -->
+				<section>
+					<h2>Increase Flow (Shift Left)</h2>
+					<p>Work should always flow downstream</p>
+					<p>Test early and often</p>
+					<p>Don't ever pass a known defect downstream</p>
+					<p>Identify and reduce bottlenecks and rework</p>
+				</section>
+				<!-- End Slide Increase Flow (Shift Left) endregion-->
+				<!--#region Enhance Feedback Loops -->
+				<section>
+					<h2>Enhance Feedback Loops</h2>
+					<p>Create multiple short feedback loops (Dev -> Ops, Business -> DevOps, etc)</p>
+					<p>Improvement, analysis, retrospectives</p>
+					<p>Automated testing gives developers feedback</p>
+				</section>
+				<!-- End Slide Enhance Feedback Loops endregion-->
+				<!--#region Encourage Experimentation -->
+				<section>
+					<h2>Encourage Experimentation</h2>
+					<p>Learn from success and failure</p>
+					<p>Encourage teams to take intelligent risks</p>
+				</section>
+				<!-- End Slide Encourage Experimentation endregion-->
+			</section>
+			<!-- End SlideGroup DevOps endregion-->
+			<!--#region SlideGroup Terms -->
+			<section>
+				<section>
+					<h1>DevOps Terms</h1>
+				</section>
+				<!--#region CI -->
+				<section>
+					<h2>CI</h2>
+					<table>
+						<tr>
+							<th>What is it?</th>
+							<th>Tools</th>
+						</tr>
+						<tr>
+							<td>Continuous Integration - building every change that a developer makes to the rest of the
+								codebase</td>
+							<td>
+								<p>ADO</p>
+								<p>Jenkins</p>
+								<p>CodeBuild & CodePipeline</p>
+							</td>
+						</tr>
+					</table>
+				</section>
+				<!-- End Slide CI endregion-->
+				<!--#region CD -->
+				<section>
+					<h2>CD</h2>
+					<table>
+						<tr>
+							<th>What is it?</th>
+							<th>Tools</th>
+						</tr>
+						<tr>
+							<td>
+								<p>Continuous Delivery - making sure code is ready to deploy to production at any time
+								</p>
+								<p>Continous Deployment - deploying each change to production</p>
+							</td>
+							<td>
+								<p>ADO</p>
+								<p>Jenkins</p>
+								<p>CodeDeploy & CodePipeline</p>
+							</td>
+						</tr>
+					</table>
+
+
+				</section>
+				<!-- End Slide CD endregion-->
+				<!--#region IAC -->
+				<section>
+					<h2>IAC</h2>
+					<table>
+						<tr>
+							<th>What is it?</th>
+							<th>Tools</th>
+						</tr>
+						<tr>
+							<td>Infrastructure as code - Defining infrastructure in idempotent and repeatable
+								provision/management scripts</td>
+							<td>
+								<p>Terraform</p>
+								<p>Ansible</p>
+								<p>Cloudformation</p>
+							</td>
+						</tr>
+					</table>
+
+
+				</section>
+				<!-- End Slide IAC endregion-->
+				<!--#region Automated Testing -->
+				<section>
+					<h2>Automated Testing</h2>
+					<table>
+						<tr>
+							<th>What is it?</th>
+							<th>Tools</th>
+						</tr>
+						<tr>
+							<td>Defining test cases in code. Unit tests usually test individual functions. CUIT tests
+								are usually functional (front end).</td>
+							<td>
+								<p>MSTest/JUnit/PyTest</p>
+								<p>Selenium</p>
+							</td>
+						</tr>
+					</table>
+
+
+				</section>
+				<!-- End Slide Automated Testing endregion-->
+				<!--#region Containerization & Orchestration -->
+				<section>
+					<h2>Containerization & Orchestration</h2>
+					<table>
+						<tr>
+							<th>What is it?</th>
+							<th>Tools</th>
+						</tr>
+						<tr>
+							<td>Packaging apps and dependencies into OS-agnostic containers. Managing groups or clusters
+								of containers.</td>
+							<td>
+								<p>Docker</p>
+								<p>Kubernetes</p>
+							</td>
+						</tr>
+					</table>
+
+
+				</section>
+				<!-- End Slide Containerization & Orchestration endregion-->
+
+			</section>
+			<!-- End SlideGroup Terms endregion-->
+
+
+			<!--#region SlideGroup Git -->
+			<section>
+				<section>
+					<h1>Git</h1>
+				</section>
+				<!--#region Origin -->
+				<section>
+					<h2>Origin</h2>
+					<p>Linus Torvalds (Linux) invented it</p>
+					<p>Focuses on integrity, speed, and non-linear workflows (branching)</p>
+					<p>Distributed SCM</p>
+					<p>Operates on snapshots (deltas)</p>
+					<p>Use Git Client, CLI, or IDEs to interact</p>
+				</section>
+				<!-- End Slide Origin endregion-->
+			</section>
+			<!-- End SlideGroup Git endregion-->
+
+			<!--#region Initializing a Repo With Code -->
+			<section>
+				<h2>Initializing a Repo With Code</h2>
+				<ul>
+					<li>git init</li>
+					<li>git add</li>
+					<li>git commit</li>
+				</ul>
+			</section>
+			<!-- End Slide Initializing a Repo With Code endregion-->
+			<!--#region Sending That Repo To Azure DevOps -->
+			<section>
+				<h2>Sending That Repo To Azure DevOps</h2>
+				<ul>
+					<li>git remote</li>
+					<li>git push</li>
+				</ul>
+			</section>
+			<!-- End Slide Sending That Repo To Azure DevOps endregion-->
+			<!--#region Creating a Change and Tracking -->
+			<section>
+				<h2>Creating a Change and Tracking</h2>
+				<ul>
+					<li>git clone</li>
+					<li><em>Develop</em></li>
+					<li>git add</li>
+					<li>git commit</li>
+					<li>git push</li>
+				</ul>
+
+			</section>
+			<!-- End Slide Creating a Change and Tracking endregion-->
+
+			<!--#region Questions? -->
+			<section>
+				<h1>Questions?</h1>
+
+			</section>
+			<!-- End Slide Questions? endregion-->
+
+			<!--#region Now What? -->
+			<section>
+				<h2>Now What?</h2>
+				<p>Move on to <a href="ado2-intermediate-git.html">Intermediate Git</a></p>
+				<p>Return to the <a href="../index.html">Presentations Home Page</a></p>
+			</section>
+			<!-- End Slide Now What? endregion-->
+
+
+		</div>
+	</div>
+
+	<script src="../dist/reveal.js"></script>
+	<script src="../plugin/notes/notes.js"></script>
+	<script src="../plugin/markdown/markdown.js"></script>
+	<script src="../plugin/highlight/highlight.js"></script>
+	<script>
+		// More info about initialization & config:
+		// - https://revealjs.com/initialization/
+		// - https://revealjs.com/config/
+		Reveal.initialize({
+			hash: true,
+
+			// Learn about plugins: https://revealjs.com/plugins/
+			plugins: [ RevealMarkdown, RevealHighlight, RevealNotes ]
+		});
+	</script>
+	</body>
+
+</html>

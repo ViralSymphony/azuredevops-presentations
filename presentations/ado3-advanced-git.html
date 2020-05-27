@@ -1,0 +1,565 @@
+<!doctype html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+	<title>Azure DevOps 3 - Advanced Git</title>
+
+	<link rel="stylesheet" href="../css/presentations.css">
+	<link rel="stylesheet" href="../dist/reset.css">
+	<link rel="stylesheet" href="../dist/reveal.css">
+	<link rel="stylesheet" href="../dist/theme/blood.css">
+
+	<!-- Theme used for syntax highlighting of code -->
+	<link rel="stylesheet" href="../plugin/highlight/monokai.css">
+
+</head>
+
+<body>
+	<div class="reveal">
+		<div class="slides">
+			<!--#region DevOps -->
+			<!--#region Working With Azure DevOps -->
+			<section>
+				<h1>Working With Azure DevOps</h1>
+				<h3>Session 3: Advanced Git</h3>
+				<small>Presented by Natalie Livanos</small>
+			</section>
+			<!-- End Slide Working With Azure DevOps endregion-->
+
+			<!--#region Recap -->
+			<section>
+				<h2>Recap</h2>
+				<ul>
+					<li>Git remotes & upstreams</li>
+					<li>Branching</li>
+					<li>Merging and Pull Requests</li>
+					<li>Merging options and strategies</li>
+					<li>Branching strategies</li>
+				</ul>
+			</section>
+			<!-- End Slide Recap endregion-->
+
+			<!--#region SlideGroup More Git -->
+			<section>
+				<section>
+					<h1>More Git</h1>
+				</section>
+				<!--#region Stash Your Changes -->
+				<section>
+					<h2>Stash Your Changes</h2>
+					<pre><code class="data-noescape hljs shell">$ git stash
+Saved working directory and index state WIP on master: 259879b Init
+
+$ git checkout -b chg1
+Switched to a new branch 'chg1'
+
+$ git stash apply
+On branch chg1
+Changes to be committed:
+  (use "git reset HEAD &lt;file&gt;..." to unstage)
+
+        new file:   1.txt
+        new file:   2.txt
+        new file:   3.txt</code></pre>
+					
+				</section>
+				<!-- End Slide Stash Your Changes endregion-->
+				<!--#region What's Changed? -->
+				<section>
+					<h2>What's Changed?</h2>
+					<pre><code class="hljs shell">$ git diff
+diff --git a/foo.bar b/foo.bar
+index a5fd404..b68c5a6 100644
+--- a/foo.bar
++++ b/foo.bar
+@@ -1,2 +1,3 @@
+ Hello world again
+ Hello hello
++This is new text to diff!</code></pre>
+					
+				</section>
+				<!-- End Slide What's Changed? endregion-->
+				<!--#region Amend A Commit -->
+				<section>
+					<h2>Amend A Commit*</h2>
+					<pre><code data-noescape class="hljs shell">$ git commit -m "Wrong message"
+[chg2 <mark>316f961</mark>] Wrong message
+ 1 file changed, 0 insertions(+), 0 deletions(-)
+ create mode 100644 foo.foo
+
+$ git commit --amend -m "Right message"
+[chg2 <mark>22c201a</mark>] Right message
+ Date: Mon Apr 20 11:55:03 2020 -0400
+ 1 file changed, 0 insertions(+), 0 deletions(-)
+ create mode 100644 foo.foo
+</code></pre>		
+					<small>*This changes history!</small>
+
+				</section>
+				<!-- End Slide Amend A Commit endregion-->
+				<!--#region Revert a Commit -->
+				<section>
+					<h2>Revert a Commit</h2>
+					<pre><code data-noescape class="hljs shell">$ git revert <mark>22c201a</mark>
+[chg2 <mark>855fe82</mark>] Revert "Right message"
+ 1 file changed, 0 insertions(+), 0 deletions(-)
+ delete mode 100644 foo.foo
+</code></pre>
+					
+				</section>
+				<!-- End Slide Revert a Commit endregion-->
+				<!--#region Cherry-Pick A Commit -->
+				<section>
+					<h2>Cherry-Pick A Commit</h2>
+					<pre><code data-noescape class="hljs shell">$ git cherry-pick <mark>b043167</mark>
+[chg1 <mark>f2ec1a1</mark>] Add Hello World
+ Date: Mon Apr 20 12:01:18 2020 -0400
+ 1 file changed, 0 insertions(+), 0 deletions(-)
+ create mode 100644 hello.world
+</code></pre>
+					
+				</section>
+				<!-- End Slide Cherry-Pick A Commit endregion-->
+				<!--#region Revert a File -->
+				<section>
+					<h2>Revert a File to a Previous Version</h2>
+					<pre><code class="hljs shell">$ git checkout 25511e3a foo.bar</code></pre>
+				</section>
+				<!-- End Slide Revert a File endregion-->
+
+				<!--#region Throw Out All Changes -->
+				<section>
+					<h2>Throw Out All Changes*</h2>
+					<pre><code class="hljs shell">$ git reset --hard
+HEAD is now at f2ec1a1 Add Hello World
+
+$ git clean -f
+Removing add.txt
+
+$ git status
+On branch chg1
+nothing to commit, working tree clean
+</code></pre>
+				<small>*This is (obviously) destructive</small>
+				</section>
+				<!-- End Slide Throw Out All Changes endregion-->
+				<!--#region Force Push -->
+				<section>
+					<h2>Force Push*</h2>
+					<div class="stack fragment fade-out">
+						<pre><code class="hljs shell">$ git push --force</code></pre>
+						<small>*This is destructive and massively disruptive</small>
+					</div>
+					<div class="stack fragment">
+						<img width="50%" src="../assets/force-push-meme.jpg"/>
+					</div>
+				</section>
+				<!-- End Slide Force Push endregion-->
+
+			</section>
+			<!-- End SlideGroup More Git endregion-->
+
+			<!--#region SlideGroup Advanced Git -->
+			<section>
+				<section>
+					<h1>Advanced Git</h1>
+				</section>
+				<!--#region The Three Trees -->
+				<section>
+					<h2>The Three Trees</h2>
+					<table>
+						<thead>
+							<th>Working Tree</th>
+							<th>Staging Index</th>
+							<th>HEAD</th>
+						</thead>
+						<tr>
+							<td>Mirrors CWD - "sandbox"</td>
+							<td>Proposed next commit</td>
+							<td>Last commit</td>
+						</tr>
+						<tr>
+							<td>Modify files</td>
+							<td><code>git add</code></td>
+							<td><code>git commit</code></td>
+						</tr>
+						<tr>
+							<td><code>git status</code> in <span style="color: red;">red</span></td>
+							<td><code>git status</code> in <span style="color: green;">green</span></td>
+							<td><code>git status</code> "nothing to commit"</td>
+						</tr>
+					</table>
+				</section>
+				<!-- End Slide The Three Trees endregion-->
+				<!--#region Binary Files -->
+				<section>
+					<h2>Binary Files</h2>
+					<p>Don't compress well</p>
+					<p>If they change often, they make repos very large very quickly</p>
+					<p>Avoid putting in git repos as much as possible (use artifact repos or package feeds like NuGet or
+						Artifactory)</p>
+				</section>
+				<!-- End Slide Binary Files endregion-->
+				<!--#region .gitignore -->
+				<section>
+					<h2>.gitignore</h2>
+					<pre>
+<code style="height: 300px;">## Ignore Visual Studio temporary files, build results, and
+## files generated by popular Visual Studio add-ons.
+##
+## Get latest from https://github.com/github/gitignore/blob/master/VisualStudio.gitignore
+
+# User-specific files
+*.rsuser
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# User-specific files (MonoDevelop/Xamarin Studio)
+*.userprefs
+
+# Mono auto generated files
+mono_crash.*
+
+# Build results
+[Dd]ebug/
+[Dd]ebugPublic/
+[Rr]elease/
+[Rr]eleases/
+x64/
+x86/
+[Ww][Ii][Nn]32/
+[Aa][Rr][Mm]/
+[Aa][Rr][Mm]64/
+bld/
+[Bb]in/
+[Oo]bj/
+[Ll]og/
+[Ll]ogs/
+
+# Visual Studio 2015/2017 cache/options directory
+.vs/
+# Uncomment if you have tasks that create the project's static files in wwwroot
+#wwwroot/
+
+# Visual Studio 2017 auto generated files
+Generated\ Files/
+
+# MSTest test Results
+[Tt]est[Rr]esult*/
+[Bb]uild[Ll]og.*</code></pre>
+					<p>Used to prevent putting files in a repo</p>
+					<p>Typically, don't add compiled code and folders to the repo - these will be in .gitignore</p>
+
+				</section>
+				<!-- End Slide .gitignore endregion-->
+				<!--#region .gitconfig -->
+				<section>
+					<h2>.gitconfig</h2>
+					<pre>
+<code>[user]
+	email = natalie.livanos@email.com
+	name = Natalie Livanos
+[filter "lfs"]
+	process = git-lfs filter-process
+	required = true
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+[https]
+	proxy = http://myproxy.com
+[credential]
+	helper = manager</code></pre>
+					<p>Local (repo), Global (User), and System hierarchy</p>
+					<pre><code>git config [-System][-Global] category.sub [value]</code></pre>
+				</section>
+				<!-- End Slide .gitconfig endregion-->
+				<section>
+					<h1>Refs</h1>
+				</section>
+				<!--#region SlideGroup What is a Ref? -->
+				<section>
+					<h2>What is a Ref?</h2>
+					<p>A ref is a pointer to a commit's SHA1 hash</p>
+					<p>Helps give readable names to points in Git history</p>
+					<p>Stored in .git/refs directory in flat files</p>
+				</section>
+				<!--#region Sound familiar? -->
+				<section>
+					<h2>Sound familiar?</h2>
+					<p class="fragment">Yes - a branch is a ref</p>
+					<p class="fragment">Branch's target moves as work is added to it</p>
+				</section>
+				<!-- End Slide Sound familiar? endregion-->
+				<!--#region HEAD -->
+				<section>
+					<h2>HEAD</h2>
+					<p>Special symbolic ref which points to the currently checked out branch or commit (detached head)</p>
+					<p>Changed when <code>git checkout</code> is issued</p>
+				</section>
+				<!-- End Slide HEAD endregion-->
+				<!--#region Tags -->
+				<section>
+					<h2>Tags</h2>
+					<p><code>git tag [TAG-NAME] [GIT-OBJECT]</code></p>
+					<p>Similar to a ref - points to a commit</p>
+					<p>Can think of it as a branch that never advances</p>
+					<p>Lightweight tags are just refs that point to a commit</p>
+					<p>Annotated tags are similar to commits - have "tagger", date, tag message</p>
+					<p>(Tags can also point to raw "git objects" rather than strictly commits)</p>
+				</section>
+				<!-- End Slide Tags endregion-->
+
+
+			</section>
+			<!-- End SlideGroup Advanced Git endregion-->
+			<!--#region SlideGroup Advanced Azure DevOps Git Configuration -->
+			<section>
+				<section>
+					<h1>Azure DevOps Git Configuration</h1>
+				</section>
+				<!--#region Creating A New Repo -->
+				<section>
+					<h2>Creating A New Repo</h2>
+					<p>When a project is created, one Git repo with name of Project is already created</p>
+					<p>One project can have many Git repos</p>
+				</section>
+				<!-- End Slide Creating A New Repo endregion-->
+				<!--#region Branch Policies -->
+				<section>
+					<h2>Branch Policies</h2>
+					<p>Protect branches from arbitrary changes without a pull request</p>
+					<p>Setting a Required policy will enforce the use of pull requests when updating the branch</p>
+					<p>Setting a Required policy will prevent branch deletion</p>
+				</section>
+				<!-- End Slide Branch Policies endregion-->
+				<!--#region Work Item Policies -->
+				<section>
+					<h3>Work Item Policies</h3>
+					<img src="../assets/policy-work-items.png"/>
+
+					
+				</section>
+				<!-- End Slide Work Item Policies endregion-->
+				<!--#region Pull Request Policies -->
+				<section>
+					<h3>Pull Request Policies</h3>
+					<img width="40%" src="../assets/policy-pr-options.png"/>
+				</section>
+				<!-- End Slide Pull Request Policies endregion-->
+				<!--#region Build Policies -->
+				<section>
+					<h3>Build Validation</h3>
+					<img src="../assets/policy-build-options.png"/>
+				</section>
+				<!-- End Slide Build Policies endregion-->
+				<!--#region Service Policies -->
+				<section>
+					<h3>Service Policies</h3>
+					<img src="../assets/policy-status.png"/>					
+				</section>
+				<!-- End Slide Service Policies endregion-->
+				<!--#region Branch Security -->
+				<section>
+					<h2>Branch Security</h2>
+					<p>Prevent specific people from modifying a branch</p>
+					<p>Can also apply to branch folders (requires CLI access)</p>
+				</section>
+				<!-- End Slide Branch Security endregion-->
+				
+			</section>
+			<!-- End SlideGroup Advanced Azure DevOps Git Configuration endregion-->
+			<!--#region SlideGroup Git Plumbing -->
+			<section>
+				<section>
+					<h1>Git Plumbing</h1>
+				</section>
+				<!--#region .git folder -->
+				<section>
+					<h2>.git Folder</h2>
+					<p>Git database contained here</p>
+					<p>All working files constructed by objects here</p>
+					<p>Deleting this removes the git repo</p>
+				</section>
+				<!-- End Slide .git folder endregion-->
+				<!--#region What's In An Empty Repo? -->
+				<section>
+					<h3>Initializing A Repo</h3>
+					<img class="fragment" width="70%" src="../assets/git structure-init.svg" />
+
+				</section>
+				<!-- End Slide What's In An Empty Repo? endregion-->
+				<!--#region What Happens When I Create A File? -->
+				<section>
+					<h3>Creating A File</h3>
+					<p class="fragment">Nothing changes!</p>
+				</section>
+				<!-- End Slide What Happens When I Create A File? endregion-->
+				<!--#region What Happens When I Stage A File? -->
+				<section>
+					<h3>Staging A File</h3>
+					<img class="fragment" width="70%" src="../assets/git structure-add.svg"/>
+					
+				</section>
+				<!-- End Slide What Happens When I Stage A File? endregion-->
+				<!--#region What Happens When I Commit A File? -->
+				<section>
+					<h3>Committing A File</h3>
+					<img class="fragment" width="70%" src="../assets/git structure-commit.svg"/>
+					
+				</section>
+				<!-- End Slide What Happens When I Commit A File? endregion-->
+				<!--#region Summary -->
+				<section>
+					<h2>Git Plumbing Summary</h2>
+					<ul>
+						<li>Git does not store deltas (they're calculated on fly). Git stores entire files as blobs.</li>
+						<li>4 types of objects in .git folder:</li>
+						<ul>
+							<li>Blobs - raw files</li>
+							<li>Trees - point to multiple blobs (think trees/dirs)</li>
+							<li>Commits - snapshot metadata + point to trees</li>
+							<li>Refs - point to something else usually a commit (think branches)</li>
+						</ul>
+						</ul>
+				</section>
+				<!-- End Slide Summary endregion-->
+
+			</section>
+			<!-- End SlideGroup Git Plumbing endregion-->
+			<!--#region SlideGroup Putting It All Together -->
+			<section>
+				<section>
+					<h1>Putting It All Together</h1>
+				</section>
+				<!--#region Goal -->
+				<section>
+					<h2>Goal</h2>
+					<ul>
+						<li>Put this presentation under Git source control</li>
+						<li>Take this presentation and put it in Azure DevOps</li>
+						<li>Show what development looks like with a Git repo out of the box</li>
+						<li>Configure branch policies to support Release Flow branching strategy</li>
+						<li>Create branch security rules to support Release Flow</li>
+						<li>Show what development looks like with this new configuration</li>
+					</ul>
+				</section>
+				<!-- End Slide Goal endregion-->
+				<!--#region Step 1 -->	
+				<section>
+					<h2>Step 1</h2>
+					<h4>Initialize a Git repo for this presentation</h4>	
+				</section>
+				<!-- End Slide Step 1 endregion-->	
+				<!--#region Step 2 -->
+				<section>
+					<h2>Step 2</h2>
+					<h4>Sync this Git repo with Azure DevOps</h4>
+				</section>
+				<!-- End Slide Step 2 endregion-->
+				<!--#region Step 3 -->
+				<section>
+					<h2>Step 3</h2>
+					<h4>Test current development process</h4>
+				</section>
+				<!-- End Slide Step 3 endregion-->
+				<!--#region Step 4 -->
+				<section>
+					<h2>Step 4</h2>
+					<h4>Configure branch policies</h4>
+				</section>
+				<!-- End Slide Step 4 endregion-->
+				<!--#region Step 5 -->
+				<section>
+					<h2>Step 5</h2>
+					<h4>Configure branch security</h4>
+				</section>
+				<!-- End Slide Step 5 endregion-->
+				<!--#region Step 6 -->
+				<section>
+					<h2>Step 6</h2>
+					<h4>Review development process with changes</h4>
+				</section>
+				<!-- End Slide Step 6 endregion-->
+			</section>
+			<!-- End SlideGroup Putting It All Together endregion-->
+
+			<!--#region Questions? -->
+			<section>
+				<h1>Questions?</h1>
+			</section>
+			<!-- End Slide Questions? endregion-->
+
+			<!--#region Now What? -->
+			<section>
+				<h2>Now What?</h2>
+				<p>Return to the <a href="../index.html">Presentations Home Page</a></p>
+			</section>
+			<!-- End Slide Now What? endregion-->
+			
+
+
+		</div>
+	</div>
+
+	<script src="https://unpkg.com/@popperjs/core@2"></script>
+	<script src="https://unpkg.com/tippy.js@6"></script>
+	<script src="../dist/reveal.js"></script>
+	<script src="../plugin/notes/notes.js"></script>
+	<script src="../plugin/markdown/markdown.js"></script>
+	<script src="../plugin/highlight/highlight.js"></script>
+	<script src="../plugin/zoom/zoom.js"></script>
+
+	<script>
+		// More info about config & dependencies:
+		// - https://github.com/hakimel/reveal.js#configuration
+		// - https://github.com/hakimel/reveal.js#dependencies
+		Reveal.initialize({
+		hash: true,
+		// Learn about plugins: https://revealjs.com/plugins/
+		plugins: [ RevealMarkdown, RevealHighlight, RevealNotes, RevealZoom ],
+
+		// dependencies: [
+		// {
+		// src: '../plugin/markdown/marked.js'
+		// },
+		// {
+		// src: '../plugin/zoom-js/zoom.js'
+		// },
+		// {
+		// src: '../plugin/markdown/markdown.js'
+		// },
+		// {
+		// src: '../plugin/highlight/highlight.js'
+		// },
+		// {
+		// src: '../plugin/notes/notes.js',
+		// async: true
+		// },
+		// {
+		// src: '../plugin/chalkboard/chalkboard.js'
+		// },
+		// ],
+		// keyboard: {
+		// 67: function() { RevealChalkboard.toggleNotesCanvas() }, // toggle notes canvas when 'c' is pressed
+		// 66: function() { RevealChalkboard.toggleChalkboard() }, // toggle chalkboard when 'b' is pressed
+		// 46: function() { RevealChalkboard.clear() }, // clear chalkboard when 'DEL' is pressed
+		// 8: function() { RevealChalkboard.reset() }, // reset chalkboard data on current slide when 'BACKSPACE' is pressed
+		// 68: function() { RevealChalkboard.download() }, // downlad recorded chalkboard drawing when 'd' is pressed
+		// 88: function() { RevealChalkboard.colorNext() }, // cycle colors forward when 'x' is pressed
+		// 90: function() { RevealChalkboard.colorPrev() }, // cycle colors backward when 'y' is pressed
+		// },
+		});
+		tippy('[data-tippy-content]',
+			{
+				theme: 'devops'
+			});
+			
+	</script>
+
+</body>
+
+</html>
