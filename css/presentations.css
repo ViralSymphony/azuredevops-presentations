@@ -9,7 +9,7 @@ code{
 
 .tippy-box[data-theme~='devops'] {
     background-color: #a23;
-    font-family: Ubuntu, "sans-serif";
+    font-family: "Ubuntu","Segoe UI", "Open Sans", sans-serif;
     color: white;
   }
   .tippy-box[data-theme~='devops'][data-placement^='top'] > .tippy-arrow::before {
