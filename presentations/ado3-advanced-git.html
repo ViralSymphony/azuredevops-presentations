@@ -373,8 +373,24 @@ Generated\ Files/
 				<!--#region Branch Security -->
 				<section>
 					<h2>Branch Security</h2>
-					<p>Prevent specific people from modifying a branch</p>
-					<p>Can also apply to branch folders (requires CLI access)</p>
+					<div data-fragment-index=0 class="fragment stack fade-out">
+						<p>Prevent specific people from modifying a branch</p>
+						<p>Can also apply to branch folders (requires CLI access)</p>
+						</div>
+						<div data-fragment-index="0" class="fragment stack fade-in-then-out">
+							<img width="60%" src="../assets/branch-security.png"/>
+						</div>
+						<div data-fragment-index="1" class="fragment stack">
+							<pre><code>**********************************************************************
+** Visual Studio 2019 Developer Command Prompt v16.5.2
+**********************************************************************
+
+> tf git permission /deny:CreateBranch /group:[TFSGROUPNAME] /collection:[COLLECTIONURL] /teamProject:[PROJECTNAME] /repository:[REPONAME]
+
+> tf git permission /allow:CreateBranch /group:[TFSGROUPNAME] /collection:[COLLECTIONURL] /teamProject:[PROJECTNAME] /repository:[REPONAME] /branch:[FOLDERNAME]
+
+</code></pre>
+						</div>
 				</section>
 				<!-- End Slide Branch Security endregion-->
 				
@@ -459,13 +475,18 @@ Generated\ Files/
 				<!--#region Step 1 -->	
 				<section>
 					<h2>Step 1</h2>
-					<h4>Initialize a Git repo for this presentation</h4>	
+					<h4>Initialize a Git repo for this presentation</h4>
+					<pre><code class="data-noescape hljs shell">$ git init
+$ git add .
+$ git commit -m "Init"</code></pre>	
 				</section>
 				<!-- End Slide Step 1 endregion-->	
 				<!--#region Step 2 -->
 				<section>
 					<h2>Step 2</h2>
 					<h4>Sync this Git repo with Azure DevOps</h4>
+					<pre><code class="data-noescape hljs shell">$ git remote add origin
+$ git push --set-upstream origin master</code></pre>	
 				</section>
 				<!-- End Slide Step 2 endregion-->
 				<!--#region Step 3 -->
@@ -484,6 +505,16 @@ Generated\ Files/
 				<section>
 					<h2>Step 5</h2>
 					<h4>Configure branch security</h4>
+					<pre><code>**********************************************************************
+** Visual Studio 2019 Developer Command Prompt v16.5.2
+**********************************************************************
+
+> tf git permission /deny:CreateBranch /group:[TFSGROUPNAME] /collection:[COLLECTIONURL] /teamProject:[PROJECTNAME] /repository:[REPONAME]
+
+> tf git permission /allow:CreateBranch /group:[TFSGROUPNAME] /collection:[COLLECTIONURL] /teamProject:[PROJECTNAME] /repository:[REPONAME] /branch:[FOLDERNAME]
+
+</code></pre>
+
 				</section>
 				<!-- End Slide Step 5 endregion-->
 				<!--#region Step 6 -->
