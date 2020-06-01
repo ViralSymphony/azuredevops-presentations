@@ -4,6 +4,8 @@ Azure DevOps Presentations is a collection of [Reveal.js](https://github.com/hak
 
 We also use a modified version of [Pike Street Theme](https://github.com/felixrieseberg/Reveal-PikeStreet) for these presentations.
 
+This presentation is hosted on GitHub Pages for quick viewing. You can see it here - [Azure DevOps Presentations](https://viralsymphony.github.io/azuredevops-presentations/)
+
 ## Installation
 
 These presentations rely on Reveal.js, which requires npm.
