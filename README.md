@@ -1,10 +1,14 @@
 # Azure DevOps Presentations
 
+Want to see these presentations without installing? 
+
+[View these presentations here](https://viralsymphony.github.io/azuredevops-presentations/)
+
+## About 
+
 Azure DevOps Presentations is a collection of [Reveal.js](https://github.com/hakimel/reveal.js) presentations used for training our team members on Azure DevOps, Git, and DevOps in general.
 
 We also use a modified version of [Pike Street Theme](https://github.com/felixrieseberg/Reveal-PikeStreet) for these presentations.
-
-This presentation is hosted on GitHub Pages for quick viewing. You can see it here - [Azure DevOps Presentations](https://viralsymphony.github.io/azuredevops-presentations/)
 
 ## Installation
 
