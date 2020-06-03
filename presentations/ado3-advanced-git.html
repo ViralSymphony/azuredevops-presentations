@@ -444,7 +444,8 @@ Generated\ Files/
 				<section>
 					<h2>Git Plumbing Summary</h2>
 					<ul>
-						<li>Git does not store deltas (they're calculated on fly). Git stores entire files as blobs.</li>
+						<li>Git does not really store deltas (they're mostly calculated on fly)*</li>
+						<li>Git stores entire files as blobs</li>
 						<li>4 types of objects in .git folder:</li>
 						<ul>
 							<li>Blobs - raw files</li>
@@ -452,8 +453,18 @@ Generated\ Files/
 							<li>Commits - snapshot metadata + point to trees</li>
 							<li>Refs - point to something else usually a commit (think branches)</li>
 						</ul>
-						</ul>
+					</ul>
+					<small>*Git may compress similar files into deltas within packfiles to save space</small>
 				</section>
+				<!--#region Packs -->
+				<section>
+					<h2>Packfiles</h2>
+					<p>For compression, Git will sometimes condense objects into packs (when <code>git gc</code> is issued)</p>
+					<p><code>git gc</code> will also run <code>git prune</code> and remove all objects and refs that are orphaned</p>
+					<p>Packs may create deltas internally to save space </p>
+					<p>When referring to an object by commit, Git will use the pack to retrieve or piece together the file</p>
+				</section>
+				<!-- End Slide Packs endregion-->
 				<!-- End Slide Summary endregion-->
 
 			</section>
