@@ -1,4 +1,5 @@
 # Azure DevOps Presentations
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=ViralSymphony_azuredevops-presentations&metric=alert_status)](https://sonarcloud.io/dashboard?id=ViralSymphony_azuredevops-presentations)
 
 Want to see these presentations without installing? 
 
