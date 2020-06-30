@@ -1,0 +1,104 @@
+<!doctype html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+	<title>Azure DevOps 4 - Intro To Builds</title>
+
+	<link rel="stylesheet" href="../css/presentations.css">
+	<link rel="stylesheet" href="../dist/reset.css">
+	<link rel="stylesheet" href="../dist/reveal.css">
+	<link rel="stylesheet" href="../dist/theme/pikestreet.css">
+
+	<!-- Theme used for syntax highlighting of code -->
+	<link rel="stylesheet" href="../plugin/highlight/monokai.css">
+</head>
+
+<body>
+	<div class="reveal">
+		<div class="line top"></div>
+		<div class="line bottom"></div>
+		<div class="line left"></div>
+		<div class="line right"></div>
+		<div class="slides">
+			<!--#region DevOps -->
+			<!--#region Working With Azure DevOps -->
+			<section data-background-image="../assets/Azure DevOps.svg" data-background-size="contain" data-background-transition="zoom">
+				<h1>Working With Azure DevOps</h1>
+				<h3>Session 4: Intro To Builds</h3>
+				<small>Presented by Natalie Livanos</small>
+			</section>
+			<!-- End Slide Working With Azure DevOps endregion-->
+
+			<!--#region Now What? -->
+			<section>
+				<h2>Now What?</h2>
+				<p>Move on to <a href="ado3-advanced-git.html">Advanced Git</a></p>
+				<p>Return to the <a href="../index.html">Presentations Home Page</a></p>
+			</section>
+			<!-- End Slide Now What? endregion-->
+			
+
+
+		</div>
+	</div>
+
+	<script src="https://unpkg.com/@popperjs/core@2"></script>
+	<script src="https://unpkg.com/tippy.js@6"></script>
+	<script src="../dist/reveal.js"></script>
+	<script src="../plugin/notes/notes.js"></script>
+	<script src="../plugin/markdown/markdown.js"></script>
+	<script src="../plugin/highlight/highlight.js"></script>
+	<script src="../plugin/zoom/zoom.js"></script>
+	<script>
+		// More info about config & dependencies:
+		// - https://github.com/hakimel/reveal.js#configuration
+		// - https://github.com/hakimel/reveal.js#dependencies
+		Reveal.initialize({
+		hash: true,
+		// Learn about plugins: https://revealjs.com/plugins/
+		plugins: [ RevealMarkdown, RevealHighlight, RevealNotes, RevealZoom ],
+
+		// dependencies: [
+		// {
+		// src: '../plugin/markdown/marked.js'
+		// },
+		// {
+		// src: '../plugin/zoom-js/zoom.js'
+		// },
+		// {
+		// src: '../plugin/markdown/markdown.js'
+		// },
+		// {
+		// src: '../plugin/highlight/highlight.js'
+		// },
+		// {
+		// src: '../plugin/notes/notes.js',
+		// async: true
+		// },
+		// {
+		// src: '../plugin/chalkboard/chalkboard.js'
+		// },
+		// ],
+		// keyboard: {
+		// 67: function() { RevealChalkboard.toggleNotesCanvas() }, // toggle notes canvas when 'c' is pressed
+		// 66: function() { RevealChalkboard.toggleChalkboard() }, // toggle chalkboard when 'b' is pressed
+		// 46: function() { RevealChalkboard.clear() }, // clear chalkboard when 'DEL' is pressed
+		// 8: function() { RevealChalkboard.reset() }, // reset chalkboard data on current slide when 'BACKSPACE' is pressed
+		// 68: function() { RevealChalkboard.download() }, // downlad recorded chalkboard drawing when 'd' is pressed
+		// 88: function() { RevealChalkboard.colorNext() }, // cycle colors forward when 'x' is pressed
+		// 90: function() { RevealChalkboard.colorPrev() }, // cycle colors backward when 'y' is pressed
+		// },
+		});
+		tippy('[data-tippy-content]',
+			{
+				theme: 'devops'
+			});
+			
+	</script>
+
+</body>
+
+</html>
