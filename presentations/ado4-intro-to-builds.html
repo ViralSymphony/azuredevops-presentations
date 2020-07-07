@@ -45,36 +45,35 @@
 					<p>Build artifacts are typically consumed by a corresponding release process</p>
 				</section>
 				<!-- End Slide What is a build? endregion-->
-				<!--#region SlideGroup Build Examples -->
+				<!--#region Build Examples -->
 				<section>
-					<section>
-						<h1>Build Examples</h1>
-						<table>
-							<thead>
-								<th>Source Code</th>
-								<th>Build Process</th>
-								<th>Build Artifacts</th>
-							</thead>
-							<tr>
-								<td>ASP.NET Web App code (Razor Pages, C# classes, etc)</td>
-								<td>Use msbuild to compile source code</td>
-								<td>A deployable ASP.NET web app (or deployment package)</td>
-							</tr>
-							<tr>
-								<td>Java source files</td>
-								<td>javac (Java compiler)</td>
-								<td>Java compiled class files</td>
-							</tr>
-							<tr>
-								<td>Shell scripts</td>
-								<td>Zip all files</td>
-								<td>Zipped shell scripts</td>
-							</tr>
-						</table>
-					</section>
+					<h2>Build Examples</h2>
+					<table>
+						<thead>
+							<th>Source Code</th>
+							<th>Build Process</th>
+							<th>Build Artifacts</th>
+						</thead>
+						<tr>
+							<td>ASP.NET Web App code (Razor Pages, C# classes, etc)</td>
+							<td>msbuild to compile</td>
+							<td>A deployable ASP.NET web app (or deployment package)</td>
+						</tr>
+						<tr>
+							<td>Java source files</td>
+							<td>javac (Java compiler)</td>
+							<td>Java compiled class files</td>
+						</tr>
+						<tr>
+							<td>Shell scripts</td>
+							<td>Zip all files</td>
+							<td>Zipped shell scripts</td>
+						</tr>
+					</table>
 
 				</section>
-				<!-- End SlideGroup Build Examples endregion-->
+				<!-- End Slide Build Examples endregion-->
+
 			</section>
 			<!-- End SlideGroup What Is A Build? endregion-->
 
@@ -83,6 +82,17 @@
 				<section>
 					<h1>Build Pipelines</h1>
 				</section>
+
+				<!--#region What's A Build Pipeline? -->
+				<section>
+					<h2>What's A Build Pipeline?</h2>
+					<p>An automated process by which code is put through a build</p>
+					<p><b>Build Pipeline (Build Definition)</b> is the template, while a <b>Run (Build)</b> is a single execution of the template</p>
+					<p>Automated tests are usually performed as part of the build pipeline (key to CI/CD)</p>
+					<p><b>Triggers</b> may be used to kick off build pipelines when certain events occur</p>
+			</section>
+				<!-- End Slide What's A Build Pipeline? endregion-->
+
 				<!--#region Why Automate A Build -->
 				<section>
 					<h2>Why Automate A Build?</h2>
@@ -91,13 +101,28 @@
 						<li>Standardization</li>
 						<li>Feedback</li>
 						<li>Confidence</li>
+						<li>Traceability</li>
 					</ul>
 				</section>
 				<!--#region Important Parts of a Build -->
 				<section>
 					<h2>Anatomy Of A Build Pipeline</h2>
+					<p>Source code</p>
+					<p>Trigger</p>
+					<p>Build process (jobs/steps)</p>
+					<p>Automated testing</p>
+					<p>Build artifact publishing</p>
+					<p>Logs & reporting</p>
 				</section>
 				<!-- End Slide Important Parts of a Build endregion-->
+
+				<!--#region Types Of Builds In Azure DevOps -->
+				<section>
+					<h2>Types Of Builds In Azure DevOps</h2>
+					<p>vNext (Classic)</p>
+					<p>YAML (not to be confused with XAML - TFS 2010)</p>
+				</section>
+				<!-- End Slide Types Of Builds In Azure DevOps endregion-->
 
 				<!--#region When To Execute A Build? -->
 				<section>
@@ -108,13 +133,8 @@
 
 				<!-- End Slide Why Automate A Build endregion-->
 
-
-
 			</section>
 			<!-- End SlideGroup Build Pipelines endregion-->
-
-
-
 
 
 			<!--#region SlideGroup Continuous Integration (CI) -->
@@ -122,7 +142,14 @@
 				<section>
 					<h1>Continuous Integration (CI)</h1>
 				</section>
-
+				<!--#region What's Continuous Integration (CI)? -->
+				<section>
+					<h2>What's Continuous Integration (CI)?</h2>
+					<p>Software development practice in which all newly developed code is regularly built against a shared integration branch at least daily</p>
+					<p>Arose out of pain from infrequent integrations</p>
+					<blockquote>"If it hurts, do it more often"</blockquote>
+				</section>
+				<!-- End Slide What's Continuous Integration (CI)? endregion-->
 			</section>
 			<!-- End SlideGroup Continuous Integration (CI) endregion-->
 
@@ -131,6 +158,14 @@
 				<section>
 					<h1>Builds and Branching Strategies</h1>
 				</section>
+				<!--#region CI & Feature Branching -->
+				<section>
+					<h2>CI & Feature Branching</h2>
+					<p>If feature branches are short-lived (a day or two) and merged regularly to the trunk - CI and Feature Branching can coexist (Trunk-Based Development)</p>
+					<p>Otherwise, these two may be in opposition to each other</p>
+					<p>Trust levels within the team usually determine which approach is used</p>
+				</section>
+				<!-- End Slide CI & Feature Branching endregion-->
 				
 			</section>
 			<!-- End SlideGroup Builds and Branching Strategies endregion-->
@@ -145,6 +180,12 @@
 			</section>
 			<!-- End Slide Things To Keep In Mind endregion-->
 
+			<!--#region More Reading -->
+			<section>
+				<h2>More Reading</h2>
+				<a target="_blank" href="https://martinfowler.com/articles/branching-patterns.html">Martin Fowler's Article On Branching Patterns</a>
+			</section>
+			<!-- End Slide More Reading endregion-->
 			<!--#region Now What? -->
 			<section>
 				<h2>Now What?</h2>
