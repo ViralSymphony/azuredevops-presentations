@@ -116,18 +116,37 @@
 				</section>
 				<!-- End Slide Important Parts of a Build endregion-->
 
+				<!--#region Infrastructure Of Build Pipelines -->
+				<section>
+					<h2>Infrastructure Of Build Pipelines</h2>
+					<p>Agents</p>
+					<p>Agent queues/pools</p>
+					<p>Agentless jobs</p>
+				</section>
+				<!-- End Slide Infrastructure Of Build Pipelines endregion-->
+
 				<!--#region Types Of Builds In Azure DevOps -->
 				<section>
 					<h2>Types Of Builds In Azure DevOps</h2>
-					<p>vNext (Classic)</p>
-					<p>YAML (not to be confused with XAML - TFS 2010)</p>
+					<div class="r-stack">
+						<div class="fragment fade-out" data-fragment-index=0>
+							<p>vNext (Classic)</p>
+						</div>
+
+						<div class="fragment" data-fragment-index=0>
+							<p>YAML</p>
+							<small>Not to be confused with XAML</small>
+						</div>
+					</div>
 				</section>
 				<!-- End Slide Types Of Builds In Azure DevOps endregion-->
 
 				<!--#region When To Execute A Build? -->
 				<section>
 					<h2>When To Execute A Build?</h2>
-
+					<p>On feature branches -> Feedback</p>
+					<p>On PR creation -> Integration</p>
+					<p>On PR completion (merge to master) -> Prepare for release</p>
 				</section>
 				<!-- End Slide When To Execute A Build? endregion-->
 
@@ -144,12 +163,20 @@
 				</section>
 				<!--#region What's Continuous Integration (CI)? -->
 				<section>
-					<h2>What's Continuous Integration (CI)?</h2>
-					<p>Software development practice in which all newly developed code is regularly built against a shared integration branch at least daily</p>
-					<p>Arose out of pain from infrequent integrations</p>
-					<blockquote>"If it hurts, do it more often"</blockquote>
+						<h2>What's Continuous Integration (CI)?</h2>
+						<p>Software development practice in which all newly developed code is regularly built against a shared integration branch at least daily</p>
+						<p>Arose out of pain from infrequent integrations</p>
+						<blockquote>"If it hurts, do it more often"</blockquote>
 				</section>
 				<!-- End Slide What's Continuous Integration (CI)? endregion-->
+				<!--#region What ISN'T Continuous Integration -->
+				<section>
+					<h2>What <b>ISN'T</b> Continuous Integration</h2>
+					<p>Just creating branch triggers</p>
+					<p>Medium/Long lived feature branches</p>					
+				</section>
+				<!-- End Slide What ISN'T Continuous Integration endregion-->
+
 			</section>
 			<!-- End SlideGroup Continuous Integration (CI) endregion-->
 
@@ -158,6 +185,22 @@
 				<section>
 					<h1>Builds and Branching Strategies</h1>
 				</section>
+
+				<!--#region Feature Branching -->
+				<section>
+					<h2>Feature Branching</h2>
+					<p>Build each push to the branch</p>
+					<p>Build the PR as integration check</p>
+					<p>Build on master after PR completes</p>
+				</section>
+				<!-- End Slide Feature Branching endregion-->
+				<!--#region CI -->
+				<section>
+					<h2>CI</h2>
+					<p>Build every commit to master</p>
+				</section>
+				<!-- End Slide CI endregion-->
+
 				<!--#region CI & Feature Branching -->
 				<section>
 					<h2>CI & Feature Branching</h2>
