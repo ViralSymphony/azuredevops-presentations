@@ -223,7 +223,7 @@ steps:
 				<!--#region Feature Branching -->
 				<section>
 					<h2>Feature Branching</h2>
-					<p>Build each push to the branch</p>
+					<p>Build each push to the feature branch</p>
 					<p>Build the PR as integration check</p>
 					<p>Build on master after PR completes</p>
 				</section>
@@ -237,7 +237,7 @@ steps:
 
 				<!--#region CI & Feature Branching -->
 				<section>
-					<h2>CI & Feature Branching</h2>
+					<h2>CI vs Feature Branching</h2>
 					<p>If feature branches are short-lived (a day or two) and merged regularly to the trunk - CI and Feature Branching can coexist (Trunk-Based Development)</p>
 					<p>Otherwise, these two may be in opposition to each other</p>
 					<p>Trust levels within the team usually determine which approach is used</p>
@@ -250,9 +250,10 @@ steps:
 			<!--#region Things To Keep In Mind -->
 			<section>
 				<h2>Things To Keep In Mind</h2>
-				<p>Builds should run quickly (&lt;5 minutes)</p>
+				<p>Builds should run <span class="devops-principle" data-tippy-content="Feedback">quickly</span> (&lt;5 minutes)</p>
 				<p>Automated testing is crucial to successful pipeline creation</p>
 				<p>Build artifacts should be presented as simply as possible (remove nested folders if not needed)</p>
+				<p>Not all teams are ready for CI - team culture and develoment frequency drives this need</p>
 				
 			</section>
 			<!-- End Slide Things To Keep In Mind endregion-->
@@ -260,7 +261,8 @@ steps:
 			<!--#region More Reading -->
 			<section>
 				<h2>More Reading</h2>
-				<a target="_blank" href="https://martinfowler.com/articles/branching-patterns.html">Martin Fowler's Article On Branching Patterns</a>
+				<p><a target="_blank" href="https://martinfowler.com/articles/branching-patterns.html">Martin Fowler's Article On Branching Patterns</a></p>
+				<p></p><a target="_blank" href="https://www.trunkbaseddevelopment.com">Trunk Based Development</a></p>
 			</section>
 			<!-- End Slide More Reading endregion-->
 			<!--#region Now What? -->
