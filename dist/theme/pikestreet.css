@@ -101,20 +101,18 @@
     font-size: 4em;
   }
   
-  /* .reveal pre code {
+  .reveal pre code {
     display: block;
     padding: 10px;
     overflow: auto;
     max-height: 400px;
     word-wrap: normal;
-    background: #fff;
-    color: #333;
   }
   
   .reveal pre code::selection {
     color: #333;
     background: #ddf7ff;
-  } */
+  }
   
   body > div > div.backgrounds > div.slide-background.present > video {
     position: fixed;

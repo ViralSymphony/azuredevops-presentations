@@ -1,0 +1,343 @@
+<!doctype html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+	<title>Azure DevOps 4 - Intro To Builds</title>
+
+	<link rel="stylesheet" href="../css/presentations.css">
+	<link rel="stylesheet" href="../dist/reset.css">
+	<link rel="stylesheet" href="../dist/reveal.css">
+	<link rel="stylesheet" href="../dist/theme/pikestreet.css">
+
+	<!-- Theme used for syntax highlighting of code -->
+	<link rel="stylesheet" href="../plugin/highlight/monokai.css">
+</head>
+
+<body>
+	<div class="reveal">
+		<div class="line top"></div>
+		<div class="line bottom"></div>
+		<div class="line left"></div>
+		<div class="line right"></div>
+		<div class="slides">
+			<!--#region DevOps -->
+			<!--#region Working With Azure DevOps -->
+			<section data-background-image="../assets/Azure DevOps.svg" data-background-size="contain" data-background-transition="zoom">
+				<h1>Working With Azure DevOps</h1>
+				<h3>Session 4: Intro To Builds</h3>
+				<small>Presented by Natalie Livanos</small>
+			</section>
+			<!-- End Slide Working With Azure DevOps endregion-->
+
+			<!--#region SlideGroup What Is A Build? -->
+			<section>
+				<section>
+					<h1>What Is A Build?</h1>
+				</section>
+				<!--#region What is a build? -->
+				<section>
+					<h2>Build</h2>
+					<p>A build is the process used to transform source code of some type into executable or deployable assets</p>
+					<p>The results of a build are typically called <b>build artifacts</b></p>
+					<p>Build artifacts are usually consumed by a corresponding release process</p>
+				</section>
+				<!-- End Slide What is a build? endregion-->
+				<!--#region Build Examples -->
+				<section>
+					<h2>Build Examples</h2>
+					<table>
+						<thead>
+							<th>Source Code</th>
+							<th>Build Process</th>
+							<th>Build Artifacts</th>
+						</thead>
+						<tr>
+							<td>ASP.NET Web App code (Razor Pages, C# classes, etc)</td>
+							<td>msbuild to compile</td>
+							<td>A deployable ASP.NET web app (or deployment package)</td>
+						</tr>
+						<tr>
+							<td>Java source files</td>
+							<td>javac (Java compiler)</td>
+							<td>Java compiled class files</td>
+						</tr>
+						<tr>
+							<td>Shell scripts</td>
+							<td>Zip all files</td>
+							<td>Zipped shell scripts</td>
+						</tr>
+					</table>
+
+				</section>
+				<!-- End Slide Build Examples endregion-->
+
+			</section>
+			<!-- End SlideGroup What Is A Build? endregion-->
+
+			<!--#region SlideGroup Build Pipelines -->
+			<section>
+				<section>
+					<h1>Build Pipelines</h1>
+				</section>
+
+				<!--#region What's A Build Pipeline? -->
+				<section>
+					<h2>What's A Build Pipeline?</h2>
+					<p>An automated process by which code is put through a build</p>
+					<p><b>Build Pipeline (Build Definition)</b> is the template, while a <b>Run (Build)</b> is a single execution of the template</p>
+					<p><span class="devops-principle" data-tippy-content="Shift left">Automated tests</span> are usually performed as part of the build pipeline</p>
+					<p><b>Triggers</b> may be used to kick off build pipelines when certain events occur</p>
+			</section>
+				<!-- End Slide What's A Build Pipeline? endregion-->
+
+				<!--#region Why Automate A Build -->
+				<section>
+					<h2>Why Automate A Build?</h2>
+					<ul>
+						<li>Repeatability</li>
+						<li>Standardization</li>
+						<li>Feedback</li>
+						<li>Confidence</li>
+						<li>Traceability</li>
+					</ul>
+				</section>
+				<!--#region Important Parts of a Build -->
+				<section>
+					<h2>Anatomy Of A Build Pipeline</h2>
+					<div class="r-stack">
+						<img data-fragment-index="1" class="fragment fade-out" width="70%" src="../assets/build-anatomy.svg"/>
+						<img data-fragment-index="1" width="70%" class="fragment" src="../assets/build-anatomy-snapshot.png"/>
+					</div>
+				</section>
+				<!-- End Slide Important Parts of a Build endregion-->
+
+				<!--#region Infrastructure Of Build Pipelines -->
+				<section>
+					<h2>Infrastructure Of Build Pipelines</h2>
+					<p>Agents</p>
+					<p>Agents have capabilities, while jobs request those using demands</p>
+					<p>Agent queues/pools</p>
+					<p>Agentless jobs</p>
+				</section>
+				<!-- End Slide Infrastructure Of Build Pipelines endregion-->
+
+				<!--#region Types Of Builds In Azure DevOps -->
+				<section>
+					<h2>Types Of Builds In Azure DevOps</h2>
+					<div class="r-stack">
+						<div class="fragment fade-out" data-fragment-index=1>
+							<p>vNext (Classic)</p>
+							<img src="../assets/build-vnext.png" width="70%"/>
+						</div>
+
+						<div class="fragment" data-fragment-index=1>
+							<p>YAML</p>
+							<div>
+								<pre><code># ASP.NET
+# Build and test ASP.NET projects.
+# Add steps that publish symbols, save build artifacts, deploy, and more:
+# https://docs.microsoft.com/azure/devops/pipelines/apps/aspnet/build-aspnet-4
+
+trigger:
+- master
+
+pool:
+  vmImage: 'windows-latest'
+
+variables:
+  solution: '**/*.sln'
+  buildPlatform: 'Any CPU'
+  buildConfiguration: 'Release'
+
+steps:
+- task: NuGetToolInstaller@1
+
+- task: NuGetCommand@2
+  inputs:
+    restoreSolution: '$(solution)'
+
+- task: VSBuild@1
+  inputs:
+    solution: '$(solution)'
+    msbuildArgs: >
+      '/p:DeployOnBuild=true 
+      /p:WebPublishMethod=Package 
+      /p:PackageAsSingleFile=true 
+      /p:SkipInvalidConfigurations=true 
+      /p:PackageLocation="$(build.artifactStagingDirectory)"'
+    platform: '$(buildPlatform)'
+    configuration: '$(buildConfiguration)'
+
+- task: VSTest@2
+  inputs:
+    platform: '$(buildPlatform)'
+    configuration: '$(buildConfiguration)'
+</code></pre>
+							</div>
+							<small>Not to be confused with XAML</small>
+						</div>
+					</div>
+				</section>
+				<!-- End Slide Types Of Builds In Azure DevOps endregion-->
+
+				<!-- End Slide Why Automate A Build endregion-->
+
+			</section>
+			<!-- End SlideGroup Build Pipelines endregion-->
+
+
+			<!--#region SlideGroup Continuous Integration (CI) -->
+			<section>
+				<section>
+					<h1>Continuous Integration (CI)</h1>
+				</section>
+				<!--#region What's Continuous Integration (CI)? -->
+				<section>
+						<h2>What's Continuous Integration (CI)?</h2>
+						<p>Software development practice in which all newly developed code is regularly built against a shared integration branch at least daily</p>
+						<p>Arose out of pain from infrequent integrations</p>
+						<blockquote>"If it hurts, do it more often"</blockquote>
+				</section>
+				<!-- End Slide What's Continuous Integration (CI)? endregion-->
+				<!--#region What ISN'T Continuous Integration -->
+				<section>
+					<h2>What <b>ISN'T</b> Continuous Integration</h2>
+					<p>Just creating branch triggers</p>
+					<p>Medium/Long lived feature branches</p>					
+				</section>
+				<!-- End Slide What ISN'T Continuous Integration endregion-->
+
+			</section>
+			<!-- End SlideGroup Continuous Integration (CI) endregion-->
+
+			<!--#region SlideGroup Builds and Branching Strategies -->
+			<section>
+				<section>
+					<h1>Builds and Branching Strategies</h1>
+				</section>
+
+				<!--#region Feature Branching -->
+				<section>
+					<h2>Feature Branching</h2>
+					<p>Build each push to the feature branch</p>
+					<p>Build the PR as integration check</p>
+					<p>Build on master after PR completes</p>
+				</section>
+				<!-- End Slide Feature Branching endregion-->
+				<!--#region CI -->
+				<section>
+					<h2>CI</h2>
+					<p>Work directly on master</p>
+					<p>Build every commit to master</p>
+				</section>
+				<!-- End Slide CI endregion-->
+
+				<!--#region CI & Feature Branching -->
+				<section>
+					<h2>CI vs Feature Branching</h2>
+					<p>If feature branches are short-lived (a day or two) and merged regularly to the trunk - CI and Feature Branching can coexist (Trunk-Based Development)</p>
+					<p>Otherwise, these two may be in opposition to each other</p>
+					<p>Trust levels within the team usually determine which approach is used</p>
+				</section>
+				<!-- End Slide CI & Feature Branching endregion-->
+				
+			</section>
+			<!-- End SlideGroup Builds and Branching Strategies endregion-->
+
+			<!--#region Things To Keep In Mind -->
+			<section>
+				<h2>Things To Keep In Mind</h2>
+				<p>Builds should run <span class="devops-principle" data-tippy-content="Feedback">quickly</span> (&lt;5 minutes)</p>
+				<p>Automated testing is crucial to successful pipeline creation</p>
+				<p>Build artifacts should be presented as simply as possible (remove nested folders if not needed)</p>
+				<p>Not all teams are ready for CI - team culture and develoment frequency drives this need</p>
+				
+			</section>
+			<!-- End Slide Things To Keep In Mind endregion-->
+
+			<!--#region Questions? -->
+			<section>
+				<h1>Questions?</h1>
+				
+			</section>
+			<!-- End Slide Questions? endregion-->
+
+			<!--#region More Reading -->
+			<section>
+				<h2>More Reading</h2>
+				<p><a target="_blank" href="https://martinfowler.com/articles/branching-patterns.html">Martin Fowler's Article On Branching Patterns</a></p>
+				<p></p><a target="_blank" href="https://www.trunkbaseddevelopment.com">Trunk Based Development</a></p>
+			</section>
+			<!-- End Slide More Reading endregion-->
+			<!--#region Now What? -->
+			<section>
+				<h2>Now What?</h2>
+				<p>Return to the <a href="../index.html">Presentations Home Page</a></p>
+			</section>
+			<!-- End Slide Now What? endregion-->
+			
+
+
+		</div>
+	</div>
+
+	<script src="https://unpkg.com/@popperjs/core@2"></script>
+	<script src="https://unpkg.com/tippy.js@6"></script>
+	<script src="../dist/reveal.js"></script>
+	<script src="../plugin/notes/notes.js"></script>
+	<script src="../plugin/markdown/markdown.js"></script>
+	<script src="../plugin/highlight/highlight.js"></script>
+	<script src="../plugin/zoom/zoom.js"></script>
+	<script>
+		// More info about config & dependencies:
+		// - https://github.com/hakimel/reveal.js#configuration
+		// - https://github.com/hakimel/reveal.js#dependencies
+		Reveal.initialize({
+		hash: true,
+		// Learn about plugins: https://revealjs.com/plugins/
+		plugins: [ RevealMarkdown, RevealHighlight, RevealNotes, RevealZoom ],
+
+		// dependencies: [
+		// {
+		// src: '../plugin/markdown/marked.js'
+		// },
+		// {
+		// src: '../plugin/zoom-js/zoom.js'
+		// },
+		// {
+		// src: '../plugin/markdown/markdown.js'
+		// },
+		// {
+		// src: '../plugin/highlight/highlight.js'
+		// },
+		// {
+		// src: '../plugin/notes/notes.js',
+		// async: true
+		// },
+		// {
+		// src: '../plugin/chalkboard/chalkboard.js'
+		// },
+		// ],
+		// keyboard: {
+		// 67: function() { RevealChalkboard.toggleNotesCanvas() }, // toggle notes canvas when 'c' is pressed
+		// 66: function() { RevealChalkboard.toggleChalkboard() }, // toggle chalkboard when 'b' is pressed
+		// 46: function() { RevealChalkboard.clear() }, // clear chalkboard when 'DEL' is pressed
+		// 8: function() { RevealChalkboard.reset() }, // reset chalkboard data on current slide when 'BACKSPACE' is pressed
+		// 68: function() { RevealChalkboard.download() }, // downlad recorded chalkboard drawing when 'd' is pressed
+		// 88: function() { RevealChalkboard.colorNext() }, // cycle colors forward when 'x' is pressed
+		// 90: function() { RevealChalkboard.colorPrev() }, // cycle colors backward when 'y' is pressed
+		// },
+		});
+		tippy('[data-tippy-content]',
+			{
+				theme: 'devops'
+			});
+			
+	</script>
+
+</body>
+
+</html>
